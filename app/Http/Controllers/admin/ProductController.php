@@ -41,32 +41,35 @@ class ProductController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'price' => 'required|numeric|min:0',
-            'category_id' => 'required|exists:categories,id',
-            'content' => 'required|string',
-            'image' => 'required',
-            'image.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
+{
+    
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'price' => 'required|numeric|min:0',
+        'category_id' => 'required|exists:categories,id',
+        'content' => 'required|string',
+        'image' => 'required',
+        'image.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        'quantity' => 'required|integer|min:0',
+    ]);
+    
 
-        $input = $request->except('image'); 
-        if ($request->hasFile('image')) {
-            $images = [];
-
-            foreach ($request->file('image') as $file) {
-                $path = $file->store('products', 'public');
-                $images[] = $path;
-            }
-            $input['image'] = json_encode($images); 
+    $input = $request->except('image');
+    
+    // Xử lý upload ảnh
+    if ($request->hasFile('image')) {
+        $images = [];
+        foreach ($request->file('image') as $file) {
+            $path = $file->store('products', 'public');
+            $images[] = $path;
         }
-
-        // Create the product
-        $product = Product::create($input);
-
-        return redirect()->route('admin.products.index')->with('success', 'Product has been created successfully!');
+        $input['image'] = json_encode($images);
     }
+    // Lưu sản phẩm vào database
+    Product::create($input);
+
+    return redirect()->route('admin.products.index')->with('success', 'Sản phẩm đã được tạo thành công!');
+}
 
     public function show($id) // Phương thức hiển thị chi tiết sản phẩm
     {
@@ -98,27 +101,47 @@ class ProductController extends Controller
         return view('admin.products.edit', compact('category', 'product'));
     }
 
-    public function update(Request $request, string $id)
-    {
-        $input = $request->all();
+    public function update(Request $request, $id)
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'price' => 'required|numeric',
+        'quantity' => 'required|integer',
+        'content' => 'required|string',
+        'category_id' => 'required|exists:categories,id',
+        'image.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+    ]);
 
-        // Tìm sản phẩm theo ID
-        $product = Product::findOrFail($id);
+    $product = Product::findOrFail($id);
+    $product->name = $request->name;
+    $product->price = $request->price;
+    $product->quantity = $request->quantity;
+    $product->content = $request->content;
+    $product->category_id = $request->category_id;
 
-        // Cập nhật thông tin sản phẩm
-        $product->update($input);
-        return redirect()->route('admin.products.index');
+    if ($request->hasFile('image')) {
+        // Xử lý hình ảnh mới nếu có
     }
 
-    public function destroy(string $id)
-    {
-        $category = Product::destroy($id);
-        return redirect()->route('admin.products.index');
-    }
+    $product->save();
 
-    public function layouts(string $id)
-    {
-        $product = Product::all();
-        return redirect()->route('admin.products.index');
-    }
+    return redirect()->route('admin.products.index')->with('success', 'Product updated successfully');
+}
+
+//     public function destroy(string $id)
+//     {
+//         $category = Product::destroy($id);
+//         return redirect()->route('admin.products.index');
+//     }
+
+//     public function layouts(string $id)
+//     {
+//         $product = Product::all();
+//         return redirect()->route('admin.products.index');
+//     }
+    public function stock()
+{
+    $products = Product::select('image','id', 'name', 'quantity', 'price')->paginate(10); // Hiển thị tên, số lượng và giá
+    return view('admin.products.stock', compact('products'));
+}
 }

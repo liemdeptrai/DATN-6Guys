@@ -4,7 +4,7 @@ namespace App\Models\admin;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use App\Models\OrderDetail;
 class Product extends Model
 {
     use HasFactory;
@@ -16,6 +16,7 @@ class Product extends Model
         'content',
         'category_id',
         'status',
+        'quantity',
     ];
     public $timestamps = false;
 
@@ -26,5 +27,9 @@ class Product extends Model
     public function orders()
     {
         return $this->belongsToMany(Orders::class, 'order_product')->withPivot('quantity', 'price');
+    }
+    public function orderDetails()
+    {
+        return $this->hasMany(OrderDetail::class, 'product_id');
     }
 }
