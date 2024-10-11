@@ -115,18 +115,25 @@ class ProductController extends Controller
     ]);
 
     $product = Product::findOrFail($id);
+<<<<<<< HEAD
     $product->sale = $request->has('sale') ? true : false;
+=======
+>>>>>>> 8b9b1fd1fb63bbf43a2a1eb40dd32b15873a30bd
     $product->name = $request->name;
     $product->price = $request->price;
     $product->quantity = $request->quantity;
     $product->content = $request->content;
     $product->category_id = $request->category_id;
+<<<<<<< HEAD
     $product->sale_percentage = $request->sale_percentage; // Lưu tỷ lệ giảm giá
 
     if ($product->sale_percentage) {
         $product->price = $product->price - ($product->price * ($product->sale_percentage / 100));
     }
     
+=======
+
+>>>>>>> 8b9b1fd1fb63bbf43a2a1eb40dd32b15873a30bd
     if ($request->hasFile('image')) {
         // Xử lý hình ảnh mới nếu có
     }

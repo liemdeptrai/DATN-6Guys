@@ -9,6 +9,7 @@ use App\Models\admin\Orders;
 use App\Models\admin\Orders_item;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+<<<<<<< HEAD
 use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
@@ -21,6 +22,11 @@ class OrderController extends Controller
         // Trả về view cùng với dữ liệu đơn hàng
         return view('user.orders.index', compact('orders'));
     }
+=======
+
+class OrderController extends Controller
+{
+>>>>>>> 8b9b1fd1fb63bbf43a2a1eb40dd32b15873a30bd
     public function list()
     {
         // Lấy tất cả đơn hàng và các chi tiết liên quan
@@ -28,6 +34,7 @@ class OrderController extends Controller
 
         return view('admin.oders.list', compact('orders'));
     }
+<<<<<<< HEAD
     public function show($id)
     {
         // Tìm đơn hàng theo id và trả về view hiển thị chi tiết
@@ -55,4 +62,6 @@ class OrderController extends Controller
         return redirect()->back()->with('success', 'Đơn hàng đã được xóa thành công.');
     }
 
+=======
+>>>>>>> 8b9b1fd1fb63bbf43a2a1eb40dd32b15873a30bd
 }

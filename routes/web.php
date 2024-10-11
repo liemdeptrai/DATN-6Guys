@@ -83,10 +83,16 @@ Route::post('/cart/add/{itemId}/{quantity}', [CartController::class, 'add'])->na
 
 Route::post('/cart/add/{itemId}', [CartController::class, 'addToCart'])->name('cart.add');
 Route::get('/oders/list', [OrderController::class, 'list'])->name('admin.oders.list');
+<<<<<<< HEAD
 Route::put('/admin/orders/{id}/status', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
 Route::delete('/admin/orders/{id}', [OrderController::class, 'destroy'])->name('orders.destroy');
 Route::get('/user/orders', [OrderController::class, 'index'])->name('user.orders');
 Route::get('/user/orders/{id}', [OrderController::class, 'show'])->name('user.orders.show');
+=======
+
+
+
+>>>>>>> 8b9b1fd1fb63bbf43a2a1eb40dd32b15873a30bd
 
 // Route::get('/', function () {
 //     return view('index');

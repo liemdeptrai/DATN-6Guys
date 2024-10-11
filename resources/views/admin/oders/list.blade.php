@@ -6,6 +6,7 @@
         @if ($orders->isEmpty())
             <p>Không có đơn hàng nào.</p>
         @else
+<<<<<<< HEAD
             @php
                 $orderStatuses = [
                     'pending' => 'Chờ xác nhận',
@@ -15,6 +16,8 @@
                     'canceled' => 'Đã hủy'
                 ];
             @endphp
+=======
+>>>>>>> 8b9b1fd1fb63bbf43a2a1eb40dd32b15873a30bd
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -26,7 +29,10 @@
                         <th>Tổng tiền</th>
                         <th>Trạng thái</th>
                         <th>Chi tiết đơn hàng</th>
+<<<<<<< HEAD
                         <th>Hành động</th>
+=======
+>>>>>>> 8b9b1fd1fb63bbf43a2a1eb40dd32b15873a30bd
                     </tr>
                 </thead>
                 <tbody>
@@ -38,6 +44,7 @@
                             <td>{{ $order->phone }}</td>
                             <td>{{ $order->payment_method }}</td>
                             <td>{{ number_format($order->total_price, 0, ',', '.') }} VND</td>
+<<<<<<< HEAD
                             <td>
                                 <form action="{{ route('orders.updateStatus', $order->id) }}" method="POST">
                                     @csrf
@@ -51,6 +58,9 @@
                                     </select>
                                 </form>
                             </td>
+=======
+                            <td>{{ ucfirst($order->status) }}</td>
+>>>>>>> 8b9b1fd1fb63bbf43a2a1eb40dd32b15873a30bd
                             <td>
                                 <button class="btn btn-info" data-toggle="collapse" data-target="#orderDetails-{{ $order->id }}">
                                     Xem chi tiết
@@ -68,11 +78,15 @@
                                         <tbody>
                                             @foreach ($order->orderDetails as $detail)
                                                 <tr>
+<<<<<<< HEAD
                                                     @if($detail->product)
                                                         <td>{{ $detail->product->name }}</td>
                                                     @else
                                                         <td>Sản phẩm không tồn tại</td>
                                                     @endif
+=======
+                                                    <td>{{ $detail->product->name }}</td>
+>>>>>>> 8b9b1fd1fb63bbf43a2a1eb40dd32b15873a30bd
                                                     <td>{{ $detail->quantity }}</td>
                                                     <td>{{ number_format($detail->price, 0, ',', '.') }} VND</td>
                                                     <td>{{ number_format($detail->price * $detail->quantity, 0, ',', '.') }} VND</td>
@@ -82,6 +96,7 @@
                                     </table>
                                 </div>
                             </td>
+<<<<<<< HEAD
                             <td>
                                 <form action="{{ route('orders.destroy', $order->id) }}" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa đơn hàng này?');">
                                     @csrf
@@ -89,6 +104,8 @@
                                     <button type="submit" class="btn btn-danger">Xóa</button>
                                 </form>
                             </td>
+=======
+>>>>>>> 8b9b1fd1fb63bbf43a2a1eb40dd32b15873a30bd
                         </tr>
                     @endforeach
                 </tbody>
