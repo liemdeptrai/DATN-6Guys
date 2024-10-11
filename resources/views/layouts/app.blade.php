@@ -340,14 +340,8 @@
                                     <li><a href="change-password.html">change password</a></li>
                                 </ul>
                             </li>
-                            <li class="navbar-item dropdown"><a class="navbar-link dropdown-arrow"
-                                    href="#">blogs</a>
-                                <ul class="dropdown-position-list">
-                                    <li><a href="blog-grid.html">blog grid</a></li>
-                                    <li><a href="blog-standard.html">blog standard</a></li>
-                                    <li><a href="blog-details.html">blog details</a></li>
-                                    <li><a href="blog-author.html">blog author</a></li>
-                                </ul>
+                            <li class="navbar-item">
+                                <a class="navbar-link dropdown-arrow" href="{{ route('user.orders') }}">Oder</a>
                             </li>
                         </ul>
                         <div class="navbar-info-group">

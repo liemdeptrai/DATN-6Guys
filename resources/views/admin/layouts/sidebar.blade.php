@@ -35,7 +35,7 @@
                          </li>
 
                          <li class="sidebar-list">
-                             <a class="sidebar-link sidebar-title link-nav" href="index.html">
+                             <a class="sidebar-link sidebar-title link-nav" href="">
                                  <i data-feather="home"></i>
                                  <span>Dashboard</span>
                              </a>
@@ -123,11 +123,11 @@
                          </li>
 
                          <li class="sidebar-list">
-                             <a class="sidebar-link sidebar-title link-nav" href="invoice.html">
-                                 <i data-feather="archive"></i>
-                                 <span>Invoice</span>
-                             </a>
-                         </li>
+                            <a class="sidebar-link sidebar-title link-nav" href="{{ route('admin.products.stock') }}">
+                                <i data-feather="archive"></i>
+                                <span>Invoice</span>
+                            </a>
+                        </li>
                          
                          <li class="sidebar-list">
                              <a class="sidebar-link sidebar-title link-nav" href="reports.html">

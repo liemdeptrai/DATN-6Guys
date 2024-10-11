@@ -22,7 +22,14 @@
                     <tr>
                         <td>
                             @if(isset($item['image']))
-                                <img src="{{ asset('storage/' . $item['image']) }}" alt="{{ $item['name'] }}" style="width: 100px; height: auto;">
+                                @php
+                                    $images = json_decode($item['image'], true); // Giải mã JSON
+                                @endphp
+                                @if(is_array($images) && count($images) > 0)
+                                    <img src="{{ asset('storage/' . $images[0]) }}" alt="{{ $item['name'] }}" style="width: 100px; height: auto;">
+                                @else
+                                    <img src="{{ asset('path/to/default-image.jpg') }}" alt="Ảnh không có" style="width: 100px; height: auto;">
+                                @endif
                             @else
                                 <img src="{{ asset('path/to/default-image.jpg') }}" alt="Ảnh không có" style="width: 100px; height: auto;">
                             @endif
@@ -70,14 +77,24 @@
             }, session('cart'))), 0, ',', '.') }} VNĐ
         </h4>
         
-        <form action="{{ route('user.checkout.process') }}" method="POST">
+        <form action="{{ route('user.checkout.confirm') }}" method="GET">
             @csrf
-            <!-- Các input khác -->
+            <!-- Các input cho thông tin thanh toán (như tên, địa chỉ, số điện thoại...) -->
             <button type="submit" class="btn btn-primary">Xác nhận thanh toán</button>
         </form>
     @else
         <p>Giỏ hàng của bạn đang trống.</p>
     @endif
 </div>
+@if(session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
 
+@if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
 @endsection

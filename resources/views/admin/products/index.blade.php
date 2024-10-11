@@ -26,7 +26,9 @@
                                         <tbody>
                                             @foreach ($product as $item)
                                                 <tr>
+                                                    
                                                     <td>
+                                                        
                                                         @if ($item->image)
                                                             @php
                                                                 $images = json_decode($item->image); // Giải mã chuỗi JSON
@@ -47,7 +49,12 @@
                                                         {{ $item->name }}
                                                     </td>
 
-                                                    <td class="td-price"> {{ $item->price }}</td>
+                                                    <td class="td-price">@if ($item->sale_percentage)
+                                                        <span class="old-price" style="text-decoration: line-through;">{{ $item->price }}<small>/</small></span>
+                                                        <span class="new-price" style="color:red;">{{ $item->price - ($item->price * ($item->sale_percentage / 100)) }}<small> VND</small></span>
+                                                    @else
+                                                        <span>{{ $item->price }}<small> VND</small></span>
+                                                    @endif</td>
 
                                                     <td>
                                                         <ul>
