@@ -89,9 +89,7 @@ Route::get('/user/orders', [OrderController::class, 'index'])->name('user.orders
 Route::get('/user/orders/{id}', [OrderController::class, 'show'])->name('user.orders.show');
 
 
-// Route::get('/', function () {
-//     return view('index');
-// });
+Route::get('/', [HomeController::class, 'index'])->name('index');
 // Route::get('/Home', function () {
 //     return view('layouts.app');
 // });
@@ -108,12 +106,12 @@ Route::get('/admin/dashboard', function () {
 // get post put/patch destroy 
 
 
-Route::prefix('home')->name('home.')->group(function () {
-    Route::get('/', [HomeController::class, 'index'])->name('');
-    Route::get('/', [HomeController::class, ''])->name('');
-});
+// Route::prefix('home')->name('home.')->group(function () {
+//     Route::get('/', [HomeController::class, 'index'])->name('index');
+//     Route::get('/', [HomeController::class, 'index'])->name('index');
+// });
 
-Route::prefix('admin')->name('admin.')->group(function () {
-    Route::get('/', [AdminController::class, 'index'])->name('');
-    Route::get('/', [AdminController::class, ''])->name('');
-});
+// Route::prefix('admin')->name('admin.')->group(function () {
+//     Route::get('/', [AdminController::class, ''])->name('');
+//     Route::get('/', [AdminController::class, ''])->name('');
+// });
