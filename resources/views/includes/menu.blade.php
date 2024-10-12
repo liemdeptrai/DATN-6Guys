@@ -24,7 +24,7 @@
 							</li>
 
 							<li>
-								<a href="">Shop</a>
+								<a href="{{route('shop')}}">Shop</a>
 							</li>
 
 							<li class="label1" data-label1="hot">

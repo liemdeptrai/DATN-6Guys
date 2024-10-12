@@ -291,9 +291,14 @@
 									<div class="block2">
 										<div class="block2-pic hov-img0">
                                             <img src="{{ $item->images ? asset($item->images) : asset('img/default-product.png') }}" alt="IMG-PRODUCT">
-											<a href="" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 ">
+											{{-- <a href="" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 ">
 												Xem chi tiết
-											</a>
+											</a>     --}}
+                                             <form id="addToCartForm" action="{{ route('cart.add', ['itemId' => $item->id]) }}" method="POST">
+                                                @csrf
+                                                
+                                                <button type="submit" class="btn btn-primary">Thêm vào giỏ hàng</button>
+                                            </form>
 										</div>
 
 										<div class="block2-txt flex-w flex-t p-t-14">

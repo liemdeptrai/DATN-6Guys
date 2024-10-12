@@ -100,6 +100,9 @@ Route::get('/post/{id}', function ($id) {
 Route::get('/admin/dashboard', function () {
     return view('admin.index');
 });
+Route::get('/shop', function () {
+    return view('user.shop');
+})->name('shop');
 
 
 //categories CRUD create read update destroy 
