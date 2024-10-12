@@ -103,6 +103,12 @@ Route::get('/admin/dashboard', function () {
 Route::get('/shop', function () {
     return view('user.shop');
 })->name('shop');
+Route::get('/blog', function () {
+    return view('user.blog');
+})->name('blog');
+Route::get('/contact', function () {
+    return view('user.contact');
+})->name('contact');
 
 
 //categories CRUD create read update destroy 

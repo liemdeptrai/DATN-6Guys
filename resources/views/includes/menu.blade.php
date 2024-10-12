@@ -32,7 +32,7 @@
 							</li>
 
 							<li>
-								<a href="blog.html">Blog</a>
+								<a href="{{route('blog')}}">Blog</a>
 							</li>
 
 							<li>
@@ -40,7 +40,7 @@
 							</li>
 
 							<li>
-								<a href="contact.html">Contact</a>
+								<a href="{{route('contact')}}">Contact</a>
 							</li>
 						</ul>
 					</div>	
