@@ -13,14 +13,10 @@ use App\Models\admin\Category;
 use App\Models\admin\Product;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/welcome', function () {
-    return view('welcome');
-});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -109,6 +105,9 @@ Route::get('/blog', function () {
 Route::get('/contact', function () {
     return view('user.contact');
 })->name('contact');
+Route::get('/about', function () {
+    return view('user.about');
+})->name('about');
 
 
 //categories CRUD create read update destroy 

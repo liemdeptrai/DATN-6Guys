@@ -28,7 +28,7 @@
 							</li>
 
 							<li class="label1" data-label1="hot">
-								<a href="shoping-cart.html">Features</a>
+								<a href="{{route('cart.index')}}">Cart</a>
 							</li>
 
 							<li>
@@ -36,7 +36,7 @@
 							</li>
 
 							<li>
-								<a href="about.html">About</a>
+								<a href="{{route('about')}}">About</a>
 							</li>
 
 							<li>
