@@ -9,11 +9,9 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card">
-<<<<<<< HEAD
-                        
-=======
+
                         <h5>Product Information</h5>
->>>>>>> 8b9b1fd1fb63bbf43a2a1eb40dd32b15873a30bd
+
                         <form action="{{ route('admin.products.update', $product->id) }}" method="POST"
                               class="theme-form theme-form-2 mega-form" enctype="multipart/form-data">
                             @method('PUT')
@@ -36,7 +34,7 @@
                                 <label for="quantity">Số lượng:</label>
                                 <input type="number" name="quantity" class="form-control" value="{{ $product->quantity }}" required>
                             </div>
-<<<<<<< HEAD
+
                             <div class="form-group">
                                 <label for="sale">Đang Sale:</label>
                                 <input type="checkbox" name="sale" id="sale" {{ $product->sale ? 'checked' : '' }}>
@@ -47,9 +45,7 @@
                                         <input class="form-control" type="number" name="sale_percentage" value="{{ $product->sale_percentage }}" step="0.01">
                                     </div>
                                 </div>
-=======
 
->>>>>>> 8b9b1fd1fb63bbf43a2a1eb40dd32b15873a30bd
                             <div class="mb-4 row align-items-center">
                                 <label class="col-sm-2 col-form-label form-label-title">Category</label>
                                 <div class="col-sm-10">

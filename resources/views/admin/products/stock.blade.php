@@ -1,6 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('content')
+<div class="page-body">
 <div class="container">
     <h1>Quản lý kho hàng</h1>
     <table class="table table-bordered">
@@ -18,7 +19,7 @@
             @foreach ($products as $product)
                 <tr>
                     <td>{{ $product->id }}</td>
-<<<<<<< HEAD
+
                     <td>
                         @php
                             $images = json_decode($product->image, true);
@@ -32,12 +33,12 @@
                     <td>{{ $product->name }}</td>
                     <td>{{ $product->quantity }}</td>
                     <td>{{ number_format($product->price, 0, ',', '.') }} VND</td>
-=======
+
                     <td>{{ $product->image}}</td>
                     <td>{{ $product->name }}</td>
                     <td>{{ $product->quantity }}</td>
                     <td>{{ $product->price }}</td>
->>>>>>> 8b9b1fd1fb63bbf43a2a1eb40dd32b15873a30bd
+
                     <td>
                         <a href="{{ route('admin.products.edit', $product->id) }}" class="btn btn-primary">Chỉnh sửa</a>
                     </td>
@@ -47,5 +48,6 @@
     </table>
 
     {{ $products->links() }}
+</div>
 </div>
 @endsection
