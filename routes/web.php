@@ -13,14 +13,10 @@ use App\Models\admin\Category;
 use App\Models\admin\Product;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/welcome', function () {
-    return view('welcome');
-});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -83,20 +79,13 @@ Route::post('/cart/add/{itemId}/{quantity}', [CartController::class, 'add'])->na
 
 Route::post('/cart/add/{itemId}', [CartController::class, 'addToCart'])->name('cart.add');
 Route::get('/oders/list', [OrderController::class, 'list'])->name('admin.oders.list');
-<<<<<<< HEAD
 Route::put('/admin/orders/{id}/status', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
 Route::delete('/admin/orders/{id}', [OrderController::class, 'destroy'])->name('orders.destroy');
 Route::get('/user/orders', [OrderController::class, 'index'])->name('user.orders');
 Route::get('/user/orders/{id}', [OrderController::class, 'show'])->name('user.orders.show');
-=======
 
 
-
->>>>>>> 8b9b1fd1fb63bbf43a2a1eb40dd32b15873a30bd
-
-// Route::get('/', function () {
-//     return view('index');
-// });
+Route::get('/', [HomeController::class, 'index'])->name('index');
 // Route::get('/Home', function () {
 //     return view('layouts.app');
 // });
@@ -107,18 +96,30 @@ Route::get('/post/{id}', function ($id) {
 Route::get('/admin/dashboard', function () {
     return view('admin.index');
 });
+Route::get('/shop', function () {
+    return view('user.shop');
+})->name('shop');
+Route::get('/blog', function () {
+    return view('user.blog');
+})->name('blog');
+Route::get('/contact', function () {
+    return view('user.contact');
+})->name('contact');
+Route::get('/about', function () {
+    return view('user.about');
+})->name('about');
 
 
 //categories CRUD create read update destroy 
 // get post put/patch destroy 
 
 
-Route::prefix('home')->name('home.')->group(function () {
-    Route::get('/', [HomeController::class, 'index'])->name('');
-    Route::get('/', [HomeController::class, ''])->name('');
-});
+// Route::prefix('home')->name('home.')->group(function () {
+//     Route::get('/', [HomeController::class, 'index'])->name('index');
+//     Route::get('/', [HomeController::class, 'index'])->name('index');
+// });
 
-Route::prefix('admin')->name('admin.')->group(function () {
-    Route::get('/', [AdminController::class, 'index'])->name('');
-    Route::get('/', [AdminController::class, ''])->name('');
-});
+// Route::prefix('admin')->name('admin.')->group(function () {
+//     Route::get('/', [AdminController::class, ''])->name('');
+//     Route::get('/', [AdminController::class, ''])->name('');
+// });

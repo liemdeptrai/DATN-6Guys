@@ -41,41 +41,38 @@ class ProductController extends Controller
     }
 
     public function store(Request $request)
-{
-    
-    $request->validate([
-        'name' => 'required|string|max:255',
-        'price' => 'required|numeric|min:0',
-        'category_id' => 'required|exists:categories,id',
-        'content' => 'required|string',
-        'image' => 'required',
-        'image.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-        'quantity' => 'required|integer|min:0',
-    ]);
-    
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric|min:0',
+            'category_id' => 'required|exists:categories,id',
+            'content' => 'required|string',
+            'image' => 'required',
+            'image.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'quantity' => 'required|integer|min:0',
+        ]);
 
-    $input = $request->except('image');
+        $input = $request->except('image');
     
-    // Xử lý upload ảnh
-    if ($request->hasFile('image')) {
-        $images = [];
-        foreach ($request->file('image') as $file) {
-            $path = $file->store('products', 'public');
-            $images[] = $path;
+        // Xử lý upload ảnh
+        if ($request->hasFile('image')) {
+            $images = [];
+            foreach ($request->file('image') as $file) {
+                $path = $file->store('products', 'public');
+                $images[] = $path;
+            }
+            $input['image'] = json_encode($images);
         }
-        $input['image'] = json_encode($images);
-    }
-    // Lưu sản phẩm vào database
-    Product::create($input);
+        // Lưu sản phẩm vào database
+        Product::create($input);
 
-    return redirect()->route('admin.products.index')->with('success', 'Sản phẩm đã được tạo thành công!');
-}
+        return redirect()->route('admin.products.index')->with('success', 'Sản phẩm đã được tạo thành công!');
+    }
 
     public function show($id) // Phương thức hiển thị chi tiết sản phẩm
     {
         // Tìm sản phẩm theo ID
         $product = Product::find($id);
-        
         
         // Giải mã chuỗi JSON thành mảng
         $images = json_decode($product->image);
@@ -97,66 +94,47 @@ class ProductController extends Controller
 
     public function edit($id)
     {
-        
         $category = Category::get(['id', 'name']);
         $product = Product::findOrFail($id);
         return view('admin.products.edit', compact('category', 'product'));
     }
 
     public function update(Request $request, $id)
-{
-    $request->validate([
-        'name' => 'required|string|max:255',
-        'price' => 'required|numeric',
-        'quantity' => 'required|integer',
-        'content' => 'required|string',
-        'category_id' => 'required|exists:categories,id',
-        'image.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-    ]);
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'quantity' => 'required|integer',
+            'content' => 'required|string',
+            'category_id' => 'required|exists:categories,id',
+            'image.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
 
-    $product = Product::findOrFail($id);
-<<<<<<< HEAD
-    $product->sale = $request->has('sale') ? true : false;
-=======
->>>>>>> 8b9b1fd1fb63bbf43a2a1eb40dd32b15873a30bd
-    $product->name = $request->name;
-    $product->price = $request->price;
-    $product->quantity = $request->quantity;
-    $product->content = $request->content;
-    $product->category_id = $request->category_id;
-<<<<<<< HEAD
-    $product->sale_percentage = $request->sale_percentage; // Lưu tỷ lệ giảm giá
+        $product = Product::findOrFail($id);
+        $product->sale = $request->has('sale') ? true : false;
+        $product->name = $request->name;
+        $product->price = $request->price;
+        $product->quantity = $request->quantity;
+        $product->content = $request->content;
+        $product->category_id = $request->category_id;
+        $product->sale_percentage = $request->sale_percentage; // Lưu tỷ lệ giảm giá
 
-    if ($product->sale_percentage) {
-        $product->price = $product->price - ($product->price * ($product->sale_percentage / 100));
-    }
+        if ($product->sale_percentage) {
+            $product->price = $product->price - ($product->price * ($product->sale_percentage / 100));
+        }
     
-=======
+        if ($request->hasFile('image')) {
+            // Xử lý hình ảnh mới nếu có
+        }
 
->>>>>>> 8b9b1fd1fb63bbf43a2a1eb40dd32b15873a30bd
-    if ($request->hasFile('image')) {
-        // Xử lý hình ảnh mới nếu có
+        $product->save();
+
+        return redirect()->route('admin.products.index')->with('success', 'Product updated successfully');
     }
 
-    $product->save();
-
-    return redirect()->route('admin.products.index')->with('success', 'Product updated successfully');
-}
-
-//     public function destroy(string $id)
-//     {
-//         $category = Product::destroy($id);
-//         return redirect()->route('admin.products.index');
-//     }
-
-//     public function layouts(string $id)
-//     {
-//         $product = Product::all();
-//         return redirect()->route('admin.products.index');
-//     }
     public function stock()
-{
-    $products = Product::select('image','id', 'name', 'quantity', 'price')->paginate(10); // Hiển thị tên, số lượng và giá
-    return view('admin.products.stock', compact('products'));
-}
+    {
+        $products = Product::select('image','id', 'name', 'quantity', 'price')->paginate(10); // Hiển thị tên, số lượng và giá
+        return view('admin.products.stock', compact('products'));
+    }
 }
